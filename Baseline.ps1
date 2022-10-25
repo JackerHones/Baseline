@@ -67,14 +67,14 @@ Start-Sleep 3
 
 ### ----- File Comparison Prompt ----- ###
 Get-Date | Out-File C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\Tree.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\Tree2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\ComputerInfo.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\ComputerInfo2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\Processes.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\Processes2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\Users.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\Users2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\SystemLogs.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\SystemLogs2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\SecurityLogs.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\SecurityLogs2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\OpenConnections.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\OpenConnections2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
-Compare-Object -ReferenceObject C:\Users\$LoggedInUser\BaseLine\Scan1\RunningServices.txt -DifferenceObject C:\Users\$LoggedInUser\BaseLine\Scan2\RunningServices2.txt | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\Tree.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\Tree2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\ComputerInfo.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\ComputerInfo2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\Processes.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\Processes2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\Users.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\Users2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\SystemLogs.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\SystemLogs2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\SecurityLogs.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\SecurityLogs2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\OpenConnections.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\OpenConnections2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
+Compare-Object -ReferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan1\RunningServices.txt) -DifferenceObject (Get-Content C:\Users\$LoggedInUser\BaseLine\Scan2\RunningServices2.txt) | Out-File -Append C:\Users\$LoggedInUser\BaseLine\PostScanDifferentials.txt
 
 ####----- Raw Scan Report -----###
 if ((Test-Path -Path C:\Users\$LoggedInUser\Baseline\Rawfile ) -eq $false){ MD C:\Users\$LoggedInUser\Baseline\Rawfile} ;
@@ -89,15 +89,9 @@ Get-EventLog -LogName Security | Out-File C:\Users\$LoggedInUser\BaseLine\Rawfil
 Netstat -an | Out-File C:\Users\$LoggedInUser\BaseLine\Rawfile\Rawscan.txt -Append
 Get-Service | Out-File C:\Users\$LoggedInUser\BaseLine\Rawfile\Rawscan.txt -Append
 
-###----- File Comparison for Scan1/Scan2 -----###
 
-
-
-
-
-echo "
-_____________________________________________________________________________________________________________
-______   ______   ________   ___   __        ______   ______   ___ __ __   ______   __       ______   _________  ______      
+echo "_______________________________________________________________________________________________________________"
+echo "______   ______   ________   ___   __        ______   ______   ___ __ __   ______   __       ______   _________  ______      
 /_____/\ /_____/\ /_______/\ /__/\ /__/\     /_____/\ /_____/\ /__//_//_/\ /_____/\ /_/\     /_____/\ /________/\/_____/\     
 \::::_\/_\:::__\/ \::: _  \ \\::\_\\  \ \    \:::__\/ \:::_ \ \\::\| \| \ \\:::_ \ \\:\ \    \::::_\/_\__.::.__\/\::::_\/_    
  \:\/___/\\:\ \  __\::(_)  \ \\:. `-\  \ \    \:\ \  __\:\ \ \ \\:.      \ \\:(_) \ \\:\ \    \:\/___/\  \::\ \   \:\/___/\   
@@ -112,4 +106,3 @@ ______   ______   ________   ___   __        ______   ______   ___ __ __   _____
 
 
 }
-
